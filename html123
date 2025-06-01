@@ -156,23 +156,17 @@
 <body>
   <h1>친환경 챌린지</h1>
 
-
   <div id="challengeContainer"></div>
 
-
   <div id="points">포인트: 0</div>
-
 
   <h2>구매 가능한 아이템</h2>
   <div id="items"></div>
 
-
   <h2>구매 내역</h2>
   <ul id="purchasedItems"></ul>
 
-
   <button id="resetBtn">새 챌린지 시작하기</button>
-
 
   <h2>챌린지 인증하기</h2>
   <div id="certifyForm" style="max-width:700px;margin:0 auto 30px;">
@@ -182,10 +176,8 @@
     <button id="postBtn">인증 게시</button>
   </div>
 
-
   <h2>인증 피드</h2>
   <div id="certifyFeed"></div>
-
 
   <script>
     const allChallenges = [
@@ -201,7 +193,6 @@
       "하루 30분 자연 속 걷기"
     ];
 
-
     const storeItems = [
       { name: "친환경 텀블러", cost: 30 },
       { name: "재사용 가능한 장바구니", cost: 20 },
@@ -209,18 +200,15 @@
       { name: "친환경 세제", cost: 40 }
     ];
 
-
     let points = 0;
     let purchased = [];
     let challengeIndices = [];
-
 
     function updatePoints(change) {
       points += change;
       if(points < 0) points = 0;
       document.getElementById("points").textContent = `포인트: ${points}`;
     }
-
 
     function updatePurchasedItems() {
       const purchasedList = document.getElementById("purchasedItems");
@@ -232,24 +220,19 @@
       });
     }
 
-
     function showStoreItems() {
       const itemsDiv = document.getElementById("items");
       itemsDiv.innerHTML = "";
-
 
       storeItems.forEach(item => {
         const itemDiv = document.createElement("div");
         itemDiv.className = "item";
 
-
         const itemName = document.createElement("span");
         itemName.textContent = `${item.name} (가격: ${item.cost} 포인트)`;
 
-
         const buyBtn = document.createElement("button");
         buyBtn.textContent = "구매하기";
-
 
         buyBtn.addEventListener("click", () => {
           if(points >= item.cost) {
@@ -262,13 +245,11 @@
           }
         });
 
-
         itemDiv.appendChild(itemName);
         itemDiv.appendChild(buyBtn);
         itemsDiv.appendChild(itemDiv);
       });
     }
-
 
     function getRandomChallengeIndex(excludeIndices=[]) {
       const availableIndices = allChallenges.map((_, i) => i).filter(i => !excludeIndices.includes(i));
@@ -276,23 +257,18 @@
       return availableIndices[Math.floor(Math.random() * availableIndices.length)];
     }
 
-
     function renderChallenges() {
       const container = document.getElementById("challengeContainer");
       container.innerHTML = "";
 
-
       challengeIndices.forEach((challengeIdx, idx) => {
         const challengeText = allChallenges[challengeIdx];
-
 
         const label = document.createElement("label");
         label.className = "challenge";
 
-
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-
 
         checkbox.addEventListener("change", () => {
           if(checkbox.checked) {
@@ -308,14 +284,12 @@
           }
         });
 
-
         label.appendChild(checkbox);
         label.appendChild(document.createElement("span"));
         label.lastChild.textContent = challengeText;
         container.appendChild(label);
       });
     }
-
 
     function startChallenges() {
       challengeIndices = [];
@@ -330,11 +304,9 @@
       renderChallenges();
     }
 
-
     document.getElementById("resetBtn").addEventListener("click", () => {
       startChallenges();
     });
-
 
     // 인증 게시 기능
     document.getElementById("postBtn").addEventListener("click", () => {
@@ -342,22 +314,18 @@
       const imageInput = document.getElementById("certifyImage");
       const feed = document.getElementById("certifyFeed");
 
-
       if (!text && !imageInput.files.length) {
         alert("내용 또는 이미지를 입력하세요!");
         return;
       }
 
-
       const card = document.createElement("div");
-
 
       const content = document.createElement("p");
       content.textContent = text;
       content.style.marginBottom = "10px";
       content.style.fontWeight = "500";
       card.appendChild(content);
-
 
       if (imageInput.files.length) {
         const img = document.createElement("img");
@@ -368,13 +336,11 @@
         card.appendChild(img);
       }
 
-
       const likeSection = document.createElement("div");
       likeSection.style.marginTop = "12px";
       likeSection.style.display = "flex";
       likeSection.style.alignItems = "center";
       likeSection.style.gap = "8px";
-
 
       const likeBtn = document.createElement("button");
       likeBtn.textContent = "❤️ 좋아요";
@@ -385,13 +351,10 @@
       likeBtn.style.backgroundColor = "#e0f2f1";
       likeBtn.style.fontWeight = "600";
 
-
       const likeCount = document.createElement("span");
       likeCount.textContent = "0";
 
-
       let liked = false;
-
 
       likeBtn.addEventListener("click", () => {
         if (!liked) {
@@ -403,7 +366,6 @@
         }
       });
 
-
       likeSection.appendChild(likeBtn);
       likeSection.appendChild(likeCount);
       card.appendChild(likeSection);
@@ -411,13 +373,11 @@
 const commentSection = document.createElement("div");
 commentSection.style.marginTop = "15px";
 
-
 const commentList = document.createElement("div");
 commentList.style.display = "flex";
 commentList.style.flexDirection = "column";
 commentList.style.gap = "6px";
 commentList.style.marginBottom = "10px";
-
 
 const commentInput = document.createElement("input");
 commentInput.type = "text";
@@ -428,7 +388,6 @@ commentInput.style.borderRadius = "6px";
 commentInput.style.width = "100%";
 commentInput.style.marginBottom = "6px";
 
-
 const commentBtn = document.createElement("button");
 commentBtn.textContent = "댓글 등록";
 commentBtn.style.padding = "6px 12px";
@@ -437,7 +396,6 @@ commentBtn.style.borderRadius = "6px";
 commentBtn.style.cursor = "pointer";
 commentBtn.style.backgroundColor = "#c8e6c9";
 commentBtn.style.fontWeight = "600";
-
 
 commentBtn.addEventListener("click", () => {
   const commentText = commentInput.value.trim();
@@ -453,20 +411,16 @@ commentBtn.addEventListener("click", () => {
   }
 });
 
-
 commentSection.appendChild(commentList);
 commentSection.appendChild(commentInput);
 commentSection.appendChild(commentBtn);
 card.appendChild(commentSection);
 
-
       feed.prepend(card);
-
 
       document.getElementById("certifyText").value = "";
       imageInput.value = "";
     });
-
 
     // 초기 실행
     showStoreItems();
@@ -474,7 +428,6 @@ card.appendChild(commentSection);
   </script>
 </body>
 </html>
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -506,7 +459,6 @@ card.appendChild(commentSection);
       margin-bottom: 20px;
     }
 
-
     .calendar {
       width: 100%;
       max-width: 480px;
@@ -517,7 +469,6 @@ card.appendChild(commentSection);
       user-select: none;
     }
 
-
     .calendar-header {
       text-align: center;
       font-weight: 600;
@@ -525,7 +476,6 @@ card.appendChild(commentSection);
       font-size: 1.3rem;
       margin-bottom: 12px;
     }
-
 
     .calendar-weekdays {
       display: grid;
@@ -537,13 +487,11 @@ card.appendChild(commentSection);
       user-select: none;
     }
 
-
     .calendar-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 8px;
     }
-
 
     .calendar-day {
       padding: 10px;
@@ -577,7 +525,6 @@ card.appendChild(commentSection);
       background-color: transparent;
     }
 
-
     .todo-preview {
       font-size: 0.75rem;
       color: #4b7053;
@@ -587,7 +534,6 @@ card.appendChild(commentSection);
       text-overflow: ellipsis;
       max-width: 100%;
     }
-
 
     .todo-container {
       margin-top: 20px;
@@ -601,12 +547,10 @@ card.appendChild(commentSection);
       user-select: none;
     }
 
-
     .input-area {
       display: flex;
       margin-bottom: 15px;
     }
-
 
     #input {
       flex-grow: 1;
@@ -622,7 +566,6 @@ card.appendChild(commentSection);
       box-shadow: 0 0 8px rgba(124,185,158,0.5);
     }
 
-
     button {
       padding: 12px 20px;
       font-size: 1.1rem;
@@ -637,7 +580,6 @@ card.appendChild(commentSection);
       background-color: #7cb99e;
     }
 
-
     #output {
       list-style: none;
       padding: 0;
@@ -645,7 +587,6 @@ card.appendChild(commentSection);
       max-height: 280px;
       overflow-y: auto;
     }
-
 
     li {
       background-color: white;
@@ -676,9 +617,7 @@ card.appendChild(commentSection);
 </head>
 <body>
 
-
   <header>2025년 5월 TODO 캘린더</header>
-
 
   <div class="calendar">
     <div class="calendar-header">2025년 5월</div>
@@ -687,7 +626,6 @@ card.appendChild(commentSection);
     </div>
     <div class="calendar-days" id="calendar-days"></div>
   </div>
-
 
   <div class="todo-container">
     <h2 id="selected-date-title">날짜를 선택하세요</h2>
@@ -698,7 +636,6 @@ card.appendChild(commentSection);
     <ul id="output"></ul>
   </div>
 
-
   <script>
     const calendarDays = document.getElementById('calendar-days');
     const selectedDateTitle = document.getElementById('selected-date-title');
@@ -706,19 +643,15 @@ card.appendChild(commentSection);
     const addBtn = document.getElementById('add-btn');
     const output = document.getElementById('output');
 
-
     const year = 2025;
     const month = 4; // 5월은 4 (0부터 시작)
-
 
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
     const today = new Date();
 
-
     let selectedDate = null;
     let todosByDate = {};
-
 
     function loadTodos() {
       const saved = localStorage.getItem('todosByDate');
@@ -727,20 +660,16 @@ card.appendChild(commentSection);
       }
     }
 
-
     function saveTodos() {
       localStorage.setItem('todosByDate', JSON.stringify(todosByDate));
     }
-
 
     function formatDate(year, month, day) {
       return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
 
-
     function renderCalendar() {
       calendarDays.innerHTML = '';
-
 
       for (let i = 0; i < firstDayOfMonth; i++) {
         const emptyCell = document.createElement('div');
@@ -748,15 +677,12 @@ card.appendChild(commentSection);
         calendarDays.appendChild(emptyCell);
       }
 
-
       for (let day = 1; day <= lastDateOfMonth; day++) {
         const dateCell = document.createElement('div');
         dateCell.classList.add('calendar-day');
 
-
         const dateStr = formatDate(year, month, day);
         dateCell.innerHTML = `<div>${day}</div>`;
-
 
         const todos = todosByDate[dateStr] || [];
         if (todos.length > 0) {
@@ -766,7 +692,6 @@ card.appendChild(commentSection);
           dateCell.appendChild(preview);
         }
 
-
         if (
           today.getFullYear() === year &&
           today.getMonth() === month &&
@@ -775,11 +700,9 @@ card.appendChild(commentSection);
           dateCell.classList.add('today');
         }
 
-
         if (selectedDate === dateStr) {
           dateCell.classList.add('selected');
         }
-
 
         dateCell.addEventListener('click', () => {
           selectedDate = dateStr;
@@ -790,15 +713,12 @@ card.appendChild(commentSection);
           input.focus();
         });
 
-
         calendarDays.appendChild(dateCell);
       }
     }
 
-
     function renderTodos() {
       output.innerHTML = '';
-
 
       if (!selectedDate) {
         selectedDateTitle.textContent = '날짜를 선택하세요';
@@ -808,20 +728,16 @@ card.appendChild(commentSection);
         return;
       }
 
-
       selectedDateTitle.textContent = `${selectedDate} 할 일 목록`;
       const todos = todosByDate[selectedDate] || [];
-
 
       todos.forEach((todo, index) => {
         const li = document.createElement('li');
         if (todo.done) li.classList.add('done');
 
-
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = todo.done;
-
 
         checkbox.addEventListener('change', () => {
           todos[index].done = checkbox.checked;
@@ -829,10 +745,8 @@ card.appendChild(commentSection);
           renderTodos();
         });
 
-
         const span = document.createElement('span');
         span.textContent = todo.text;
-
 
         li.appendChild(checkbox);
         li.appendChild(span);
@@ -840,16 +754,13 @@ card.appendChild(commentSection);
       });
     }
 
-
     function addTodo() {
       const text = input.value.trim();
       if (!text || !selectedDate) return;
 
-
       if (!todosByDate[selectedDate]) {
         todosByDate[selectedDate] = [];
       }
-
 
       todosByDate[selectedDate].push({ text, done: false });
       saveTodos();
@@ -859,19 +770,16 @@ card.appendChild(commentSection);
       input.focus();
     }
 
-
     addBtn.addEventListener('click', addTodo);
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') addTodo();
     });
-
 
     loadTodos();
     renderCalendar();
     renderTodos();
   </script>
 </body>
-</html> 
-
+</html>
 
 
